@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>The Four Seasons · 四季绘本点读</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+body { font-family: 'Arial Rounded MT Bold', Arial, sans-serif; background: #f0f7ff;
+  min-height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+
+/* ── Top bar ── */
+.topbar { display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 16px; background: white; box-shadow: 0 2px 8px rgba(0,0,0,.12);
+  z-index: 20; flex-shrink: 0; }
+.topbar h1 { font-size: 16px; color: #2a4080; font-weight: 800; letter-spacing: .5px; }
+.top-btns { display: flex; gap: 8px; }
+.tbtn { padding: 6px 14px; border: none; border-radius: 20px; font-size: 13px;
+  font-weight: bold; cursor: pointer; transition: all .15s; }
+.tbtn:active { transform: scale(.93); }
+.tbtn-play { background: #4caf50; color: white; }
+.tbtn-stop { background: #f44336; color: white; }
+.speed-wrap { display: flex; align-items: center; gap: 5px; font-size: 12px; color: #666; }
+input[type=range] { width: 60px; accent-color: #4caf50; }
+
+/* ── Main layout ── */
+.main { flex: 1; display: flex; flex-direction: column; overflow: hidden; position: relative; }
+
+/* ── Page container ── */
+.page { display: none; flex-direction: column; height: 100%; }
+.page.active { display: flex; }
+
+/* ── Book image ── */
+.book-img-wrap { flex: 0 0 auto; display: flex; justify-content: center; align-items: flex-end;
+  padding: 12px 16px 8px; background: white; }
+.book-img-wrap img { max-height: 42vh; max-width: 100%; object-fit: contain;
+  border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,.2); }
+
+/* ── Sentence area ── */
+.sent-area { flex: 1; display: flex; flex-direction: column; justify-content: center;
+  align-items: center; padding: 10px 20px 10px; gap: 10px; overflow-y: auto; }
+
+.sent-btn {
+  width: 100%; max-width: 520px;
+  background: white; border: 3px solid transparent;
+  border-radius: 16px; padding: 14px 20px 14px 50px;
+  font-size: 20px; font-weight: 700; color: #222; cursor: pointer;
+  text-align: left; line-height: 1.4; position: relative;
+  box-shadow: 0 3px 10px rgba(0,0,0,.1); transition: all .18s;
+  -webkit-user-select: none; user-select: none;
+}
+.sent-btn::before { content: "🔊"; position: absolute; left: 14px; top: 50%;
+  transform: translateY(-50%); font-size: 20px; transition: all .2s; }
+.sent-btn:hover  { transform: scale(1.02); box-shadow: 0 6px 18px rgba(0,0,0,.18); }
+.sent-btn:active { transform: scale(.97); }
+.sent-btn.playing { color: white; border-color: transparent !important;
+  box-shadow: 0 6px 20px rgba(0,0,0,.25); }
+.sent-btn.playing::before { content: "▶"; animation: spin 1s linear infinite; }
+@keyframes spin { 0%,100%{transform:translateY(-50%) scale(1)} 50%{transform:translateY(-50%) scale(1.3)} }
+
+/* Season colours */
+.spring .sent-btn        { border-color: #81c784; }
+.spring .sent-btn.playing{ background: #4caf50; }
+.summer .sent-btn        { border-color: #ffb74d; }
+.summer .sent-btn.playing{ background: #ff9800; }
+.fall   .sent-btn        { border-color: #ff8a65; }
+.fall   .sent-btn.playing{ background: #ff5722; }
+.winter .sent-btn        { border-color: #64b5f6; }
+.winter .sent-btn.playing{ background: #2196f3; }
+.all    .sent-btn        { border-color: #ab47bc; }
+.all    .sent-btn.playing{ background: #9c27b0; }
+
+/* Page theme backgrounds */
+.page.spring { background: linear-gradient(180deg, #e8f5e9 0%, #c8e6c9 100%); }
+.page.summer { background: linear-gradient(180deg, #fff8e1 0%, #ffe082 100%); }
+.page.fall   { background: linear-gradient(180deg, #fbe9e7 0%, #ffccbc 100%); }
+.page.winter { background: linear-gradient(180deg, #e3f2fd 0%, #bbdefb 100%); }
+.page.all    { background: linear-gradient(180deg, #f3e5f5 0%, #e1bee7 100%); }
+.page.intro  { background: linear-gradient(180deg, #e0f7fa 0%, #b2ebf2 100%); }
+
+/* ── Nav bar ── */
+.navbar { flex-shrink: 0; display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 16px; background: rgba(255,255,255,.85); backdrop-filter: blur(8px);
+  box-shadow: 0 -2px 8px rgba(0,0,0,.1); }
+.nav-btn { width: 48px; height: 48px; border: none; border-radius: 50%;
+  font-size: 22px; cursor: pointer; background: white; box-shadow: 0 2px 8px rgba(0,0,0,.15);
+  display: flex; align-items: center; justify-content: center; transition: all .15s; }
+.nav-btn:hover  { transform: scale(1.1); box-shadow: 0 4px 14px rgba(0,0,0,.2); }
+.nav-btn:active { transform: scale(.9); }
+.nav-btn:disabled { opacity: .3; cursor: default; transform: none; }
+
+.page-indicator { display: flex; gap: 7px; align-items: center; }
+.dot { width: 9px; height: 9px; border-radius: 50%; background: #ccc; transition: all .2s; cursor: pointer; }
+.dot.active { width: 22px; border-radius: 5px; background: #2a4080; }
+
+/* ── Season label ── */
+.season-tag { display: inline-block; padding: 3px 12px; border-radius: 20px;
+  font-size: 11px; font-weight: bold; color: white; margin-bottom: 8px; text-transform: uppercase; }
+.spring .season-tag { background: #4caf50; }
+.summer .season-tag { background: #ff9800; }
+.fall   .season-tag { background: #ff5722; }
+.winter .season-tag { background: #2196f3; }
+.all    .season-tag { background: #9c27b0; }
+.intro  .season-tag { background: #00bcd4; }
+
+/* ── Confetti finish ── */
+.finish-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.6);
+  z-index: 100; align-items: center; justify-content: center; flex-direction: column; gap: 20px; }
+.finish-overlay.show { display: flex; }
+.finish-box { background: white; border-radius: 24px; padding: 36px 44px; text-align: center;
+  box-shadow: 0 20px 60px rgba(0,0,0,.3); }
+.finish-emoji { font-size: 60px; }
+.finish-box h2 { font-size: 24px; color: #2a4080; margin: 12px 0 6px; }
+.finish-box p  { color: #666; font-size: 15px; }
+.finish-btn { margin-top: 18px; padding: 12px 32px; background: #4caf50; color: white;
+  border: none; border-radius: 24px; font-size: 16px; font-weight: bold; cursor: pointer; }
+</style>
+</head>
+<body>
+
+<!-- Top bar -->
+<div class="topbar">
+  <h1>🌱 The Four Seasons</h1>
+  <div class="top-btns">
+    <button class="tbtn tbtn-play" id="btnAutoPlay" onclick="toggleAutoPlay()">▶ 全部朗读</button>
+    <button class="tbtn tbtn-stop" onclick="stopAll()">⏹</button>
+  </div>
+  <div class="speed-wrap">
+    速度 <input type="range" id="speedRange" min="0.5" max="1.5" step="0.25" value="1.0"
+      oninput="document.getElementById('speedLbl').textContent=this.value+'×'">
+    <span id="speedLbl">1.0×</span>
+  </div>
+</div>
+
+<!-- Pages -->
+<div class="main" id="mainArea">
+
+  <!-- Page 1: Intro -->
+  <div class="page intro active" data-page="0" data-theme="intro">
+    <div class="book-img-wrap">
+      <img src="img/p03.jpg" alt="Four seasons collage">
+    </div>
+    <div class="sent-area">
+      <span class="season-tag">Intro</span>
+      <button class="sent-btn" data-audio="audio/s02.mp3" onclick="playSent(this)">
+        There are four seasons.
+      </button>
+    </div>
+  </div>
+
+  <!-- Page 2: Spring -->
+  <div class="page spring" data-page="1" data-theme="spring">
+    <div class="book-img-wrap">
+      <img src="img/p04.jpg" alt="Spring rain">
+    </div>
+    <div class="sent-area">
+      <span class="season-tag">🌸 Spring</span>
+      <button class="sent-btn" data-audio="audio/s03.mp3" onclick="playSent(this)">
+        In spring, the rain falls.
+      </button>
+      <button class="sent-btn" data-audio="audio/s04.mp3" onclick="playSent(this)">
+        Children play in the puddles.
+      </button>
+    </div>
+  </div>
+
+  <!-- Page 3: Spring → Summer -->
+  <div class="page summer" data-page="2" data-theme="summer">
+    <div class="book-img-wrap">
+      <img src="img/p05.jpg" alt="Summer coming">
+    </div>
+    <div class="sent-area">
+      <span class="season-tag">☀️ Summer coming</span>
+      <button class="sent-btn" data-audio="audio/s05.mp3" onclick="playSent(this)">
+        The days get longer.
+      </button>
+      <button class="sent-btn" data-audio="audio/s06.mp3" onclick="playSent(this)">
+        Summer comes.
+      </button>
+    </div>
+  </div>
+
+  <!-- Page 4: Summer -->
+  <div class="page summer" data-page="3" data-theme="summer">
+    <div class="book-img-wrap">
+      <img src="img/p06.jpg" alt="Summer beach">
+    </div>
+    <div class="sent-area">
+      <span class="season-tag">☀️ Summer</span>
+      <button class="sent-btn" data-audio="audio/s07.mp3" onclick="playSent(this)">
+        In summer, the days are hot.
+      </button>
+      <button class="sent-btn" data-audio="audio/s08.mp3" onclick="playSent(this)">
+        Children play at the beach.
+      </button>
+    </div>
+  </div>
+
+  <!-- Page 5: Summer → Fall -->
+  <div class="page fall" data-page="4" data-theme="fall">
+    <div class="book-img-wrap">
+      <img src="img/p07.jpg" alt="Fall coming">
+    </div>
+    <div class="sent-area">
+      <span class="season-tag">🍂 Fall coming</span>
+      <button class="sent-btn" data-audio="audio/s09.mp3" onclick="playSent(this)">
+        It starts to cool off.
+      </button>
+      <button class="sent-btn" data-audio="audio/s10.mp3" onclick="playSent(this)">
+        Fall comes.
+      </button>
+    </div>
+  </div>
+
+  <!-- Page 6: Fall -->
+  <div class="page fall" data-page="5" data-theme="fall">
+    <div class="book-img-wrap">
+      <img src="img/p08.jpg" alt="Fall pumpkins">
+    </div>
+    <div class="sent-area">
+      <span class="season-tag">🍂 Fall</span>
+      <button class="sent-btn" data-audio="audio/s11.mp3" onclick="playSent(this)">
+        In fall, trees lose their leaves.
+      </button>
+      <button class="sent-btn" data-audio="audio/s12.mp3" onclick="playSent(this)">
+        Children make faces on pumpkins.
+      </button>
+    </div>
+  </div>
+
+  <!-- Page 7: Fall → Winter -->
+  <div class="page winter" data-page="6" data-theme="winter">
+    <div class="book-img-wrap">
+      <img src="img/p09.jpg" alt="Winter coming">
+    </div>
+    <div class="sent-area">
+      <span class="season-tag">❄️ Winter coming</span>
+      <button class="sent-btn" data-audio="audio/s13.mp3" onclick="playSent(this)">
+        The winds get colder.
+      </button>
+      <button class="sent-btn" data-audio="audio/s14.mp3" onclick="playSent(this)">
+        Winter comes.
+      </button>
+    </div>
+  </div>
+
+  <!-- Page 8: Winter -->
+  <div class="page winter" data-page="7" data-theme="winter">
+    <div class="book-img-wrap">
+      <img src="img/p10.jpg" alt="Winter snow">
+    </div>
+    <div class="sent-area">
+      <span class="season-tag">❄️ Winter</span>
+      <button class="sent-btn" data-audio="audio/s15.mp3" onclick="playSent(this)">
+        In winter, the days are shorter.
+      </button>
+      <button class="sent-btn" data-audio="audio/s16.mp3" onclick="playSent(this)">
+        Children play in the snow.
+      </button>
+    </div>
+  </div>
+
+  <!-- Page 9: Spring again -->
+  <div class="page spring" data-page="8" data-theme="spring">
+    <div class="book-img-wrap">
+      <img src="img/p11.jpg" alt="Spring again">
+    </div>
+    <div class="sent-area">
+      <span class="season-tag">🌱 Spring again</span>
+      <button class="sent-btn" data-audio="audio/s17.mp3" onclick="playSent(this)">
+        The snow melts.
+      </button>
+      <button class="sent-btn" data-audio="audio/s18.mp3" onclick="playSent(this)">
+        It gets warmer.
+      </button>
+      <button class="sent-btn" data-audio="audio/s19.mp3" onclick="playSent(this)">
+        Spring comes again.
+      </button>
+    </div>
+  </div>
+
+  <!-- Page 10: All seasons -->
+  <div class="page all" data-page="9" data-theme="all">
+    <div class="book-img-wrap">
+      <img src="img/p12.jpg" alt="All seasons fun">
+    </div>
+    <div class="sent-area">
+      <span class="season-tag">🌈 All Seasons</span>
+      <button class="sent-btn" data-audio="audio/s20.mp3" onclick="playSent(this)">
+        Children have fun in all seasons!
+      </button>
+    </div>
+  </div>
+
+</div><!-- .main -->
+
+<!-- Nav bar -->
+<div class="navbar">
+  <button class="nav-btn" id="btnPrev" onclick="goPage(-1)" disabled>◀</button>
+  <div class="page-indicator" id="dots"></div>
+  <button class="nav-btn" id="btnNext" onclick="goPage(1)">▶</button>
+</div>
+
+<!-- Finish overlay -->
+<div class="finish-overlay" id="finishOverlay">
+  <div class="finish-box">
+    <div class="finish-emoji">⭐🌈⭐</div>
+    <h2>阅读完成！</h2>
+    <p>Great job reading The Four Seasons! 🎉</p>
+    <button class="finish-btn" onclick="restartBook()">↺ 再读一遍</button>
+  </div>
+</div>
+
+<script>
+// ── State ──────────────────────────────────────────────────────────
+const pages    = Array.from(document.querySelectorAll('.page'));
+const totalPgs = pages.length;
+let curPage    = 0;
+let autoPlay   = false;
+let curAudio   = null;
+let curBtn     = null;
+
+// ── Build dots ─────────────────────────────────────────────────────
+const dotsEl = document.getElementById('dots');
+pages.forEach((_, i) => {
+  const d = document.createElement('div');
+  d.className = 'dot' + (i === 0 ? ' active' : '');
+  d.onclick = () => { stopAll(); showPage(i); };
+  dotsEl.appendChild(d);
+});
+
+// ── Page navigation ────────────────────────────────────────────────
+function showPage(idx) {
+  pages.forEach((p, i) => p.classList.toggle('active', i === idx));
+  dotsEl.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === idx));
+  document.getElementById('btnPrev').disabled = idx === 0;
+  document.getElementById('btnNext').disabled = idx === totalPgs - 1;
+  curPage = idx;
+}
+
+function goPage(dir) {
+  stopAll();
+  const next = curPage + dir;
+  if (next >= 0 && next < totalPgs) showPage(next);
+}
+
+// ── Audio playback ─────────────────────────────────────────────────
+function playSent(btn, onEnded) {
+  stopAudio();
+  const src = btn.dataset.audio;
+  curAudio = new Audio(src);
+  curAudio.playbackRate = parseFloat(document.getElementById('speedRange').value);
+  curBtn = btn;
+  btn.classList.add('playing');
+  btn.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+  curAudio.onended = () => {
+    btn.classList.remove('playing');
+    curAudio = null; curBtn = null;
+    if (onEnded) onEnded();
+  };
+  curAudio.onerror = () => {
+    btn.classList.remove('playing');
+    if (onEnded) onEnded();
+  };
+  curAudio.play().catch(() => { if (onEnded) onEnded(); });
+}
+
+function stopAudio() {
+  if (curAudio) { curAudio.pause(); curAudio.currentTime = 0; curAudio = null; }
+  if (curBtn)   { curBtn.classList.remove('playing'); curBtn = null; }
+}
+
+function stopAll() {
+  autoPlay = false;
+  stopAudio();
+  document.getElementById('btnAutoPlay').textContent = '▶ 全部朗读';
+}
+
+// ── Auto-play all sentences in order ──────────────────────────────
+function toggleAutoPlay() {
+  if (autoPlay) { stopAll(); return; }
+  autoPlay = true;
+  document.getElementById('btnAutoPlay').textContent = '⏸ 暂停';
+  // Collect all sentence buttons in order across all pages
+  runAutoPlay(0, getAllBtns());
+}
+
+function getAllBtns() {
+  const all = [];
+  pages.forEach((pg, pi) => {
+    pg.querySelectorAll('.sent-btn').forEach(btn => all.push({ btn, pi }));
+  });
+  return all;
+}
+
+function runAutoPlay(idx, allBtns) {
+  if (!autoPlay || idx >= allBtns.length) {
+    if (autoPlay) {
+      autoPlay = false;
+      document.getElementById('btnAutoPlay').textContent = '▶ 全部朗读';
+      document.getElementById('finishOverlay').classList.add('show');
+    }
+    return;
+  }
+  const { btn, pi } = allBtns[idx];
+  if (pi !== curPage) showPage(pi);
+  setTimeout(() => {
+    if (!autoPlay) return;
+    playSent(btn, () => {
+      setTimeout(() => runAutoPlay(idx + 1, allBtns), 400);
+    });
+  }, pi !== curPage ? 300 : 0);
+}
+
+// ── Finish / restart ───────────────────────────────────────────────
+function restartBook() {
+  document.getElementById('finishOverlay').classList.remove('show');
+  stopAll();
+  showPage(0);
+}
+
+// ── Keyboard shortcuts ─────────────────────────────────────────────
+document.addEventListener('keydown', e => {
+  if (e.code === 'ArrowRight') goPage(1);
+  else if (e.code === 'ArrowLeft') goPage(-1);
+  else if (e.code === 'Space') { e.preventDefault(); toggleAutoPlay(); }
+});
+
+// ── Touch swipe ────────────────────────────────────────────────────
+let touchX = 0;
+document.getElementById('mainArea').addEventListener('touchstart', e => {
+  touchX = e.touches[0].clientX;
+}, { passive: true });
+document.getElementById('mainArea').addEventListener('touchend', e => {
+  const dx = e.changedTouches[0].clientX - touchX;
+  if (Math.abs(dx) > 60) goPage(dx < 0 ? 1 : -1);
+}, { passive: true });
+</script>
+</body>
+</html>
