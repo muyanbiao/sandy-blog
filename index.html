@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Kid Reading · English Reader</title>
+  <link rel="stylesheet" href="style.css?v=202605041213">
+</head>
+<body>
+  <header class="site-header">
+    <div>
+      <div class="brand">Kid Reading</div>
+      <div class="tagline">手机打开就能用的英语点读小站</div>
+    </div>
+    <nav class="nav-tabs">
+      <button class="nav-btn active" id="nav-home" data-view="home">首页</button>
+      <button class="nav-btn" id="nav-library" data-view="library">资源</button>
+      <button class="nav-btn" id="nav-about" data-view="about">关于</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="view active" id="home-view">
+      <div class="hero">
+        <p class="eyebrow">English tap-to-read</p>
+        <h1>每天一点点，孩子自己点着听</h1>
+        <p class="hero-copy">先从简单绘本和短句开始，支持逐句点读、连续播放和视频跟读。</p>
+        <div class="hero-actions">
+          <button class="primary-btn" data-view="library">查看点读资源</button>
+          <button class="secondary-btn" data-reader="seasons">开始体验</button>
+        </div>
+      </div>
+
+      <div class="notice-card">
+        <strong>更多点读资源更新中</strong>
+        <span>后续会按年龄和主题继续补充绘本、课文和生活场景英语。</span>
+      </div>
+
+      <section class="section-block">
+        <div class="section-title">
+          <h2>最新资源</h2>
+          <button class="text-btn" data-view="library">全部资源</button>
+        </div>
+        <div class="resource-list" id="home-resource-list"></div>
+      </section>
+    </section>
+
+    <section class="view" id="library-view">
+      <div class="page-heading">
+        <h1>点读资源列表</h1>
+        <p>按年龄和主题选择适合孩子的点读内容。</p>
+      </div>
+
+      <div class="filter-panel">
+        <div>
+          <div class="filter-label">按年龄分类</div>
+          <div class="chip-row" id="age-filters"></div>
+        </div>
+        <div>
+          <div class="filter-label">按主题分类</div>
+          <div class="chip-row" id="topic-filters"></div>
+        </div>
+      </div>
+
+      <div class="resource-list" id="library-resource-list"></div>
+    </section>
+
+    <section class="view" id="reader-view">
+      <div class="reader-header">
+        <button class="back-btn" data-view="library">← 资源列表</button>
+        <div>
+          <div class="book-title" id="book-title"></div>
+          <div class="book-meta" id="book-meta"></div>
+        </div>
+      </div>
+
+      <div class="mode-bar">
+        <button class="mode-btn active" id="btn-tap" data-mode="tap">Tap to Read</button>
+        <button class="mode-btn" id="btn-auto" data-mode="auto">Auto Play</button>
+        <button class="mode-btn" id="btn-video" data-mode="video">Video</button>
+      </div>
+
+      <div id="video-area" style="display:none">
+        <video id="story-video" controls playsinline></video>
+      </div>
+
+      <div id="read-area">
+        <div id="sentences-container"></div>
+        <div id="auto-bar" style="display:none">
+          <button class="play-all-btn" data-auto-play="true">Play All</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="view" id="about-view">
+      <div class="page-heading">
+        <h1>关于我们 / 联系方式</h1>
+        <p>这里会持续整理适合家庭使用的英语点读资源。</p>
+      </div>
+
+      <div class="about-card">
+        <h2>Kid Reading 在做什么</h2>
+        <p>我们希望把英文绘本、课文和生活场景做成手机可点读的页面，让孩子能自己点、自己听，父母陪伴起来更轻松。</p>
+      </div>
+
+      <div class="about-card">
+        <h2>资源更新方向</h2>
+        <p>3-6岁启蒙绘本、小学课文跟读、动物/颜色/四季/日常表达等主题会陆续更新。</p>
+      </div>
+
+      <div class="about-card contact-card">
+        <h2>联系与反馈</h2>
+        <p>如果你想要某个主题或某本绘本的点读页，可以先记录下来，后续这里会放微信/邮箱/表单入口。</p>
+      </div>
+    </section>
+  </main>
+
+  <script src="data.js?v=202605041213"></script>
+  <script src="app.js?v=202605041213"></script>
+</body>
+</html>
