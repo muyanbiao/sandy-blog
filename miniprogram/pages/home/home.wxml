@@ -1,17 +1,85 @@
 <view class="page">
-  <view class="hero">
-    <view class="eyebrow">Kid Reading</view>
-    <view class="title">英语点读</view>
-    <view class="subtitle">点一句，听一句。孩子可以跟读，也可以录下来回放。</view>
+  <view class="top-greeting">
+    <view>
+      <view class="hello">Let’s Read Today!</view>
+      <view class="hello-sub">今天一起读英语吧</view>
+    </view>
+    <view class="star-badge">
+      <view class="star-count">{{progress.starCount || 0}}</view>
+      <view class="star-label">stars</view>
+    </view>
   </view>
 
   <view wx:if="{{loadMessage}}" class="loading">{{loadMessage}}</view>
 
+  <view wx:if="{{todayTask}}" class="today-card" bindtap="startToday">
+    <view class="today-copy">
+      <view class="today-kicker">今日点读</view>
+      <view class="today-title">{{todayTask.title}}</view>
+      <view class="today-subtitle">{{todayTask.subtitle}}</view>
+      <view class="today-stats">{{todayTask.stats}}</view>
+      <view class="today-preview">{{todayTask.preview}}</view>
+      <button class="start-btn" catchtap="startToday">开始点读</button>
+    </view>
+    <view class="today-art">
+      <image wx:if="{{todayTask.image}}" src="{{todayTask.image}}" mode="aspectFill"></image>
+      <view class="play-circle">▶</view>
+    </view>
+  </view>
+
+  <view class="section quick-section">
+    <view class="section-head compact">
+      <view class="section-title">快速开始</view>
+    </view>
+    <view class="quick-grid">
+      <block wx:for="{{quickActions}}" wx:key="id">
+        <view class="quick-card {{item.toneClass}}" bindtap="quickStart" data-book-id="{{item.bookId}}">
+          <view class="quick-icon">{{item.subtitle}}</view>
+          <view class="quick-title">{{item.title}}</view>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <view class="section" wx:if="{{hasThemeBooks}}">
+    <view class="section-head">
+      <view>
+        <view class="section-title">主题点读</view>
+        <view class="section-subtitle">选一个主题，马上开始</view>
+      </view>
+    </view>
+    <view class="theme-grid">
+      <block wx:for="{{themeBooks}}" wx:key="id">
+        <view class="theme-card {{item.toneClass}}" bindtap="openTheme" data-id="{{item.id}}">
+          <image wx:if="{{item.image}}" src="{{item.image}}" mode="aspectFill"></image>
+          <view class="theme-mask">
+            <view class="theme-title">{{item.title}}</view>
+            <view class="theme-subtitle">{{item.subtitle}} · {{item.countText}}</view>
+          </view>
+          <view class="theme-badge">{{item.badge}}</view>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <view class="progress-panel">
+    <view>
+      <view class="progress-title">{{progress.activeDaysText}}</view>
+      <view class="progress-subtitle">{{progress.learnedText}}</view>
+    </view>
+    <view class="week-dots">
+      <block wx:for="{{progress.weekDots}}" wx:key="key">
+        <view class="week-dot {{item.dotClass}}"></view>
+      </block>
+    </view>
+    <view class="progress-note">{{progress.encourageText}}</view>
+  </view>
+
   <view class="section" wx:if="{{hasClassBooks}}">
     <view class="section-head">
       <view>
-        <view class="section-title">一（4）班</view>
-        <view class="section-subtitle">课堂资源</view>
+        <view class="section-title">班级作业</view>
+        <view class="section-subtitle">老师布置的短期点读</view>
       </view>
     </view>
     <block wx:for="{{classBooks}}" wx:key="id">
@@ -36,8 +104,8 @@
   <view class="section" wx:if="{{hasBooks}}">
     <view class="section-head">
       <view>
-        <view class="section-title">点读资源</view>
-        <view class="section-subtitle">启蒙绘本和单词卡</view>
+        <view class="section-title">点读馆</view>
+        <view class="section-subtitle">更多绘本和单词卡</view>
       </view>
     </view>
     <block wx:for="{{books}}" wx:key="id">
