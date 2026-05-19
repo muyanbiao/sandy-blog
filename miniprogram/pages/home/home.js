@@ -152,7 +152,6 @@ function readingSort(a, b) {
 Page({
   data: {
     todayTask: null,
-    quickActions: [],
     themeBooks: [],
     progress: {},
     books: [],
@@ -180,21 +179,14 @@ Page({
       .filter(book => isClassBook(book) && (!todaySource || book.id !== todaySource.id))
       .map(buildCard);
     const todayTask = buildTodayTask(todaySource);
-    const progress = buildProgress(activeBooks, loadProgress());
-    const recentBook = activeBooks.find(book => book.id === loadProgress().lastBookId) || todaySource;
     const themeBooks = THEME_IDS
       .map(id => activeBooks.find(book => book.id === id))
       .filter(Boolean)
       .map(buildThemeCard);
-    const quickActions = [
-      { id: 'read', title: '点读', subtitle: 'Read', action: 'read', bookId: todaySource ? todaySource.id : '', toneClass: 'quick-read' },
-      { id: 'speak', title: '跟读', subtitle: 'Speak', action: 'speak', bookId: todaySource ? todaySource.id : '', toneClass: 'quick-speak' },
-      { id: 'review', title: '复习', subtitle: 'Review', action: 'review', bookId: recentBook ? recentBook.id : '', toneClass: 'quick-review' }
-    ];
+    const progress = buildProgress(activeBooks, loadProgress());
 
     this.setData({
       todayTask,
-      quickActions,
       themeBooks,
       progress,
       classBooks,
@@ -215,12 +207,6 @@ Page({
   startToday() {
     if (!this.data.todayTask || !this.data.todayTask.id) return;
     this.openBook(this.data.todayTask.id);
-  },
-
-  quickStart(event) {
-    const id = event.currentTarget.dataset.bookId;
-    if (!id) return;
-    this.openBook(id);
   },
 
   openTheme(event) {

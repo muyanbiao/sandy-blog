@@ -27,20 +27,6 @@
     </view>
   </view>
 
-  <view class="section quick-section">
-    <view class="section-head compact">
-      <view class="section-title">快速开始</view>
-    </view>
-    <view class="quick-grid">
-      <block wx:for="{{quickActions}}" wx:key="id">
-        <view class="quick-card {{item.toneClass}}" bindtap="quickStart" data-book-id="{{item.bookId}}">
-          <view class="quick-icon">{{item.subtitle}}</view>
-          <view class="quick-title">{{item.title}}</view>
-        </view>
-      </block>
-    </view>
-  </view>
-
   <view class="section" wx:if="{{hasThemeBooks}}">
     <view class="section-head">
       <view>
