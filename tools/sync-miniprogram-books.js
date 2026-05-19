@@ -28,19 +28,19 @@ function absoluteAssetUrl(value) {
   return `${siteOrigin}/${value}`;
 }
 
-function sourcePathForAsset(value) {
+function assetPathname(value) {
   if (!value || typeof value !== 'string') return '';
-  const localPath = /^https?:\/\//i.test(value)
-    ? new URL(value).pathname.replace(/^\/+/, '')
-    : value.replace(/^\/+/, '');
-  return path.join(rootDir, localPath);
+  if (/^https?:\/\//i.test(value)) return new URL(value).pathname.replace(/^\/+/, '');
+  return value.split(/[?#]/)[0].replace(/^\/+/, '');
+}
+
+function sourcePathForAsset(value) {
+  return path.join(rootDir, assetPathname(value));
 }
 
 function localAudioPath(value) {
   if (!value || typeof value !== 'string') return value;
-  const pathname = /^https?:\/\//i.test(value)
-    ? new URL(value).pathname.replace(/^\/+/, '')
-    : value.replace(/^\/+/, '');
+  const pathname = assetPathname(value);
   return path.posix.join('local-audio', pathname.split(path.sep).join('/'));
 }
 

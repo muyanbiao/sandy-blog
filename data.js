@@ -480,9 +480,9 @@ const books = [
     description: '运动主题动作英语：一页一个动作，短句点读、跟读鼓励和动作音效。',
     practice: true,
     encouragementAudios: [
-      'assets/audio/books/lets-move/enc-great.mp3',
-      'assets/audio/books/lets-move/enc-awesome.mp3',
-      'assets/audio/books/lets-move/enc-good-job.mp3',
+      'assets/audio/books/lets-move/enc-great.mp3?v=202605191215',
+      'assets/audio/books/lets-move/enc-awesome.mp3?v=202605191215',
+      'assets/audio/books/lets-move/enc-good-job.mp3?v=202605191215',
     ],
     pages: [
       {
@@ -492,10 +492,10 @@ const books = [
         image: 'assets/img/books/lets-move/cover.webp',
         alt: "Let's Move cover",
         actionText: 'Move with me!',
-        actionAudio: 'assets/audio/books/lets-move/sfx-ready.mp3',
+        actionAudio: 'assets/audio/books/lets-move/sfx-ready.mp3?v=202605191215',
         sentences: [
-          { id: 'lm-cover-lets-move', text: "Let's move!", audio: 'assets/audio/books/lets-move/lm-cover-01-lets-move.mp3' },
-          { id: 'lm-cover-lets-play', text: "Let's play!", audio: 'assets/audio/books/lets-move/lm-cover-02-lets-play.mp3' },
+          { id: 'lm-cover-lets-move', text: "Let's move!", audio: 'assets/audio/books/lets-move/lm-cover-01-lets-move.mp3?v=202605191215' },
+          { id: 'lm-cover-lets-play', text: "Let's play!", audio: 'assets/audio/books/lets-move/lm-cover-02-lets-play.mp3?v=202605191215' },
         ]
       },
       {
@@ -505,11 +505,11 @@ const books = [
         image: 'assets/img/books/lets-move/run.webp',
         alt: 'Run',
         actionText: 'Run with me!',
-        actionAudio: 'assets/audio/books/lets-move/sfx-run.mp3',
+        actionAudio: 'assets/audio/books/lets-move/sfx-run.mp3?v=202605191215',
         sentences: [
-          { id: 'lm-run-word', text: 'Run!', audio: 'assets/audio/books/lets-move/lm-run-01-word.mp3' },
-          { id: 'lm-run-chant', text: 'Run, run, run!', audio: 'assets/audio/books/lets-move/lm-run-02-chant.mp3' },
-          { id: 'lm-run-can', text: 'I can run fast!', audio: 'assets/audio/books/lets-move/lm-run-03-can.mp3' },
+          { id: 'lm-run-word', text: 'Run!', audio: 'assets/audio/books/lets-move/lm-run-01-word.mp3?v=202605191215' },
+          { id: 'lm-run-chant', text: 'Run, run, run!', audio: 'assets/audio/books/lets-move/lm-run-02-chant.mp3?v=202605191215' },
+          { id: 'lm-run-can', text: 'I can run fast!', audio: 'assets/audio/books/lets-move/lm-run-03-can.mp3?v=202605191215' },
         ]
       },
       {
@@ -519,11 +519,11 @@ const books = [
         image: 'assets/img/books/lets-move/jump.webp',
         alt: 'Jump',
         actionText: 'Jump together!',
-        actionAudio: 'assets/audio/books/lets-move/sfx-jump.mp3',
+        actionAudio: 'assets/audio/books/lets-move/sfx-jump.mp3?v=202605191215',
         sentences: [
-          { id: 'lm-jump-word', text: 'Jump!', audio: 'assets/audio/books/lets-move/lm-jump-01-word.mp3' },
-          { id: 'lm-jump-high', text: 'Jump up high!', audio: 'assets/audio/books/lets-move/lm-jump-02-high.mp3' },
-          { id: 'lm-jump-can', text: 'I can jump!', audio: 'assets/audio/books/lets-move/lm-jump-03-can.mp3' },
+          { id: 'lm-jump-word', text: 'Jump!', audio: 'assets/audio/books/lets-move/lm-jump-01-word.mp3?v=202605191215' },
+          { id: 'lm-jump-high', text: 'Jump up high!', audio: 'assets/audio/books/lets-move/lm-jump-02-high.mp3?v=202605191215' },
+          { id: 'lm-jump-can', text: 'I can jump!', audio: 'assets/audio/books/lets-move/lm-jump-03-can.mp3?v=202605191215' },
         ]
       },
       {
@@ -533,11 +533,11 @@ const books = [
         image: 'assets/img/books/lets-move/kick.webp',
         alt: 'Kick',
         actionText: 'Kick the ball!',
-        actionAudio: 'assets/audio/books/lets-move/sfx-kick.mp3',
+        actionAudio: 'assets/audio/books/lets-move/sfx-kick.mp3?v=202605191215',
         sentences: [
-          { id: 'lm-kick-word', text: 'Kick!', audio: 'assets/audio/books/lets-move/lm-kick-01-word.mp3' },
-          { id: 'lm-kick-ball', text: 'Kick the ball!', audio: 'assets/audio/books/lets-move/lm-kick-02-ball.mp3' },
-          { id: 'lm-kick-go', text: 'Go! Go! Go!', audio: 'assets/audio/books/lets-move/lm-kick-03-go.mp3' },
+          { id: 'lm-kick-word', text: 'Kick!', audio: 'assets/audio/books/lets-move/lm-kick-01-word.mp3?v=202605191215' },
+          { id: 'lm-kick-ball', text: 'Kick the ball!', audio: 'assets/audio/books/lets-move/lm-kick-02-ball.mp3?v=202605191215' },
+          { id: 'lm-kick-go', text: 'Go! Go! Go!', audio: 'assets/audio/books/lets-move/lm-kick-03-go.mp3?v=202605191215' },
         ]
       },
       {
@@ -547,11 +547,11 @@ const books = [
         image: 'assets/img/books/lets-move/throw.webp',
         alt: 'Throw',
         actionText: 'Throw and catch!',
-        actionAudio: 'assets/audio/books/lets-move/sfx-throw.mp3',
+        actionAudio: 'assets/audio/books/lets-move/sfx-throw.mp3?v=202605191215',
         sentences: [
-          { id: 'lm-throw-word', text: 'Throw!', audio: 'assets/audio/books/lets-move/lm-throw-01-word.mp3' },
-          { id: 'lm-throw-ball', text: 'Throw the ball!', audio: 'assets/audio/books/lets-move/lm-throw-02-ball.mp3' },
-          { id: 'lm-throw-catch', text: 'Catch it!', audio: 'assets/audio/books/lets-move/lm-throw-03-catch.mp3' },
+          { id: 'lm-throw-word', text: 'Throw!', audio: 'assets/audio/books/lets-move/lm-throw-01-word.mp3?v=202605191215' },
+          { id: 'lm-throw-ball', text: 'Throw the ball!', audio: 'assets/audio/books/lets-move/lm-throw-02-ball.mp3?v=202605191215' },
+          { id: 'lm-throw-catch', text: 'Catch it!', audio: 'assets/audio/books/lets-move/lm-throw-03-catch.mp3?v=202605191215' },
         ]
       },
       {
@@ -561,11 +561,11 @@ const books = [
         image: 'assets/img/books/lets-move/swim.webp',
         alt: 'Swim',
         actionText: 'Swim like a fish!',
-        actionAudio: 'assets/audio/books/lets-move/sfx-swim.mp3',
+        actionAudio: 'assets/audio/books/lets-move/sfx-swim.mp3?v=202605191215',
         sentences: [
-          { id: 'lm-swim-word', text: 'Swim!', audio: 'assets/audio/books/lets-move/lm-swim-01-word.mp3' },
-          { id: 'lm-swim-water', text: 'Swim in the water!', audio: 'assets/audio/books/lets-move/lm-swim-02-water.mp3' },
-          { id: 'lm-swim-splash', text: 'Splash! Splash!', audio: 'assets/audio/books/lets-move/lm-swim-03-splash.mp3' },
+          { id: 'lm-swim-word', text: 'Swim!', audio: 'assets/audio/books/lets-move/lm-swim-01-word.mp3?v=202605191215' },
+          { id: 'lm-swim-water', text: 'Swim in the water!', audio: 'assets/audio/books/lets-move/lm-swim-02-water.mp3?v=202605191215' },
+          { id: 'lm-swim-splash', text: 'Splash! Splash!', audio: 'assets/audio/books/lets-move/lm-swim-03-splash.mp3?v=202605191215' },
         ]
       },
       {
@@ -575,11 +575,11 @@ const books = [
         image: 'assets/img/books/lets-move/ride.webp',
         alt: 'Ride',
         actionText: "Let's ride!",
-        actionAudio: 'assets/audio/books/lets-move/sfx-ride.mp3',
+        actionAudio: 'assets/audio/books/lets-move/sfx-ride.mp3?v=202605191215',
         sentences: [
-          { id: 'lm-ride-word', text: 'Ride!', audio: 'assets/audio/books/lets-move/lm-ride-01-word.mp3' },
-          { id: 'lm-ride-bike', text: 'Ride a bike!', audio: 'assets/audio/books/lets-move/lm-ride-02-bike.mp3' },
-          { id: 'lm-ride-ring', text: 'Ring! Ring!', audio: 'assets/audio/books/lets-move/lm-ride-03-ring.mp3' },
+          { id: 'lm-ride-word', text: 'Ride!', audio: 'assets/audio/books/lets-move/lm-ride-01-word.mp3?v=202605191215' },
+          { id: 'lm-ride-bike', text: 'Ride a bike!', audio: 'assets/audio/books/lets-move/lm-ride-02-bike.mp3?v=202605191215' },
+          { id: 'lm-ride-ring', text: 'Ring! Ring!', audio: 'assets/audio/books/lets-move/lm-ride-03-ring.mp3?v=202605191215' },
         ]
       },
       {
@@ -589,12 +589,12 @@ const books = [
         image: 'assets/img/books/lets-move/great-job.webp',
         alt: 'Great job',
         actionText: 'Yay!',
-        actionAudio: 'assets/audio/books/lets-move/sfx-yay.mp3',
+        actionAudio: 'assets/audio/books/lets-move/sfx-yay.mp3?v=202605191215',
         sentences: [
-          { id: 'lm-end-run', text: 'You can run!', audio: 'assets/audio/books/lets-move/lm-end-01-run.mp3' },
-          { id: 'lm-end-jump', text: 'You can jump!', audio: 'assets/audio/books/lets-move/lm-end-02-jump.mp3' },
-          { id: 'lm-end-sports', text: 'You can play sports!', audio: 'assets/audio/books/lets-move/lm-end-03-sports.mp3' },
-          { id: 'lm-end-yay', text: 'Yay!', audio: 'assets/audio/books/lets-move/lm-end-04-yay.mp3' },
+          { id: 'lm-end-run', text: 'You can run!', audio: 'assets/audio/books/lets-move/lm-end-01-run.mp3?v=202605191215' },
+          { id: 'lm-end-jump', text: 'You can jump!', audio: 'assets/audio/books/lets-move/lm-end-02-jump.mp3?v=202605191215' },
+          { id: 'lm-end-sports', text: 'You can play sports!', audio: 'assets/audio/books/lets-move/lm-end-03-sports.mp3?v=202605191215' },
+          { id: 'lm-end-yay', text: 'Yay!', audio: 'assets/audio/books/lets-move/lm-end-04-yay.mp3?v=202605191215' },
         ]
       },
     ]
