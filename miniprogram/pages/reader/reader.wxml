@@ -1,0 +1,44 @@
+<view class="page reader-page">
+  <view class="topbar">
+    <button class="back" bindtap="goBack">‹</button>
+    <view class="book-info">
+      <view class="book-title">{{book.title}}</view>
+      <view class="book-meta">{{book.age}} · {{book.topic}} · {{book.level}}</view>
+    </view>
+  </view>
+
+  <view wx:if="{{page.image}}" class="image-wrap">
+    <image src="{{page.image}}" mode="aspectFit"></image>
+  </view>
+
+  <view class="page-label">{{pageNumber}} / {{pageTotal}} · {{pageLabel}}</view>
+
+  <button wx:if="{{page.actionText}}" class="action-prompt" data-audio="{{page.actionAudio}}" bindtap="playAction">
+    {{page.actionText}}
+  </button>
+
+  <block wx:for="{{page.sentences}}" wx:key="id">
+    <view class="sentence-card {{item.cardClass}}">
+      <view class="sentence-row">
+        <button class="listen" data-id="{{item.id}}" data-audio="{{item.audio}}" bindtap="playSentence">
+          {{item.listenText}}
+        </button>
+        <text class="sentence-text">{{item.text}}</text>
+      </view>
+
+      <view class="actions">
+        <button class="record {{item.recordClass}}" data-id="{{item.id}}" bindtap="toggleRecord">
+          {{item.recordText}}
+        </button>
+        <button wx:if="{{item.hasRecording}}" class="replay" data-id="{{item.id}}" bindtap="playRecording">听我的录音</button>
+      </view>
+      <view wx:if="{{item.feedbackText}}" class="feedback">{{item.feedbackText}}</view>
+    </view>
+  </block>
+
+  <view class="pager">
+    <button bindtap="prevPage" disabled="{{isFirstPage}}">‹</button>
+    <text>{{pageNumber}} / {{pageTotal}}</text>
+    <button bindtap="nextPage" disabled="{{isLastPage}}">›</button>
+  </view>
+</view>

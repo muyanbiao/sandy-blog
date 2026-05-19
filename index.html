@@ -4,7 +4,29 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
   <title>Kid Reading · English Reader</title>
-  <link rel="stylesheet" href="style.css?v=202605041213">
+  <link rel="preload" href="data.js?v=202605131810" as="script">
+  <link rel="preload" href="app.js?v=202605132015" as="script">
+  <link rel="stylesheet" href="style.css?v=202605132015">
+  <script>
+    (() => {
+      const reader = new URLSearchParams(window.location.search).get('reader');
+      const firstImages = {
+        'class-1-4-l21-my-lunch': 'assets/class/grade1-4/l21-my-lunch/reader/p01.webp',
+        'class-1-4-l20-party-food': 'assets/class/grade1-4/l20-party-food/reader/p01.webp',
+        'fruit-words': 'assets/img/books/fruits/apple.webp',
+        'i-see-fruit': 'assets/img/books/fruits/apple.webp',
+        'fruit-in-my-bag': 'assets/img/books/fruits/fruit-bag.webp',
+        'animal-words': 'assets/img/books/animals/cat.webp'
+      };
+      if (firstImages[reader]) {
+        const link = document.createElement('link');
+        link.rel = 'preload';
+        link.as = 'image';
+        link.href = firstImages[reader];
+        document.head.appendChild(link);
+      }
+    })();
+  </script>
 </head>
 <body>
   <header class="site-header">
@@ -21,27 +43,25 @@
 
   <main>
     <section class="view active" id="home-view">
-      <div class="hero">
+      <div class="home-intro">
         <p class="eyebrow">English tap-to-read</p>
-        <h1>每天一点点，孩子自己点着听</h1>
-        <p class="hero-copy">先从简单绘本和短句开始，支持逐句点读、连续播放和视频跟读。</p>
-        <div class="hero-actions">
-          <button class="primary-btn" data-view="library">查看点读资源</button>
-          <button class="secondary-btn" data-reader="seasons">开始体验</button>
-        </div>
-      </div>
-
-      <div class="notice-card">
-        <strong>更多点读资源更新中</strong>
-        <span>后续会按年龄和主题继续补充绘本、课文和生活场景英语。</span>
+        <h1>选择点读资源</h1>
+        <p>打开就能点，选一个主题开始听和跟读。</p>
       </div>
 
       <section class="section-block">
         <div class="section-title">
-          <h2>最新资源</h2>
+          <h2>点读资源</h2>
           <button class="text-btn" data-view="library">全部资源</button>
         </div>
         <div class="resource-list" id="home-resource-list"></div>
+      </section>
+
+      <section class="section-block">
+        <div class="section-title">
+          <h2>一（4）班</h2>
+        </div>
+        <div class="resource-list" id="class-resource-list"></div>
       </section>
     </section>
 
@@ -110,12 +130,23 @@
 
       <div class="about-card contact-card">
         <h2>联系与反馈</h2>
-        <p>如果你想要某个主题或某本绘本的点读页，可以先记录下来，后续这里会放微信/邮箱/表单入口。</p>
+        <p>如果你想要某个主题或某本绘本的点读页，可以通过邮箱或微信联系我。</p>
+        <div class="contact-grid">
+          <div class="contact-item">
+            <div class="contact-label">QQ 邮箱</div>
+            <a href="mailto:1065163553@qq.com">1065163553@qq.com</a>
+          </div>
+          <div class="contact-item qr-item">
+            <div class="contact-label">微信</div>
+            <img data-src="assets/img/contact/wechat-qr.jpg" alt="微信二维码" loading="lazy">
+            <span>扫码添加微信</span>
+          </div>
+        </div>
       </div>
     </section>
   </main>
 
-  <script src="data.js?v=202605041213"></script>
-  <script src="app.js?v=202605041213"></script>
+  <script src="data.js?v=202605131810"></script>
+  <script src="app.js?v=202605132015"></script>
 </body>
 </html>

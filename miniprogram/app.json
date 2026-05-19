@@ -1,0 +1,21 @@
+{
+  "pages": [
+    "pages/home/home",
+    "pages/reader/reader"
+  ],
+  "window": {
+    "navigationBarTitleText": "Kid Reading",
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#f5f7fb"
+  },
+  "networkTimeout": {
+    "request": 20000,
+    "downloadFile": 30000,
+    "uploadFile": 20000,
+    "connectSocket": 20000
+  },
+  "lazyCodeLoading": "requiredComponents",
+  "sitemapLocation": "sitemap.json",
+  "requiredPrivateInfos": []
+}
