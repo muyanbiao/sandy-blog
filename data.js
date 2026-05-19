@@ -615,6 +615,110 @@ const books = [
 
 const classBooks = [
   {
+    id: 'class-1-4-l22-my-sand-pie',
+    title: 'L22 My sand pie',
+    subtitle: '一（4）班点读版',
+    age: '一（4）班',
+    topic: '英语课文',
+    level: 'L22',
+    color: '#F59E0B',
+    description: 'My sand pie 课文点读版，支持左右滑动翻页、逐句点读。有效期至 2026-05-26 23:59。',
+    expiresAt: '2026-05-26T23:59:59+08:00',
+    practice: true,
+    pages: [
+      {
+        id: 1,
+        label: 'Cover',
+        theme: 'class',
+        image: 'assets/class/grade1-4/l22-my-sand-pie/reader/p01.webp',
+        alt: 'My sand pie cover',
+        sentences: [
+          { id: 'l22-p01-title', text: 'My sand pie.', audio: 'assets/class/grade1-4/l22-my-sand-pie/audio/p01-title.mp3' },
+        ]
+      },
+      {
+        id: 2,
+        label: 'Bucket',
+        theme: 'class',
+        image: 'assets/class/grade1-4/l22-my-sand-pie/reader/p02.webp',
+        alt: 'Bucket',
+        sentences: [
+          { id: 'l22-p02-bucket', text: 'Here is the bucket.', audio: 'assets/class/grade1-4/l22-my-sand-pie/audio/p02-bucket.mp3' },
+        ]
+      },
+      {
+        id: 3,
+        label: 'Spade',
+        theme: 'class',
+        image: 'assets/class/grade1-4/l22-my-sand-pie/reader/p03.webp',
+        alt: 'Spade',
+        sentences: [
+          { id: 'l22-p03-spade', text: 'Here is the spade.', audio: 'assets/class/grade1-4/l22-my-sand-pie/audio/p03-spade.mp3' },
+        ]
+      },
+      {
+        id: 4,
+        label: 'Sand',
+        theme: 'class',
+        image: 'assets/class/grade1-4/l22-my-sand-pie/reader/p04.webp',
+        alt: 'Sand',
+        sentences: [
+          { id: 'l22-p04-sand', text: 'Here is the sand.', audio: 'assets/class/grade1-4/l22-my-sand-pie/audio/p04-sand.mp3' },
+        ]
+      },
+      {
+        id: 5,
+        label: 'Water',
+        theme: 'class',
+        image: 'assets/class/grade1-4/l22-my-sand-pie/reader/p05.webp',
+        alt: 'Water',
+        sentences: [
+          { id: 'l22-p05-water', text: 'Here is the water.', audio: 'assets/class/grade1-4/l22-my-sand-pie/audio/p05-water.mp3' },
+        ]
+      },
+      {
+        id: 6,
+        label: 'Plate',
+        theme: 'class',
+        image: 'assets/class/grade1-4/l22-my-sand-pie/reader/p06.webp',
+        alt: 'Plate',
+        sentences: [
+          { id: 'l22-p06-plate', text: 'Here is the plate.', audio: 'assets/class/grade1-4/l22-my-sand-pie/audio/p06-plate.mp3' },
+        ]
+      },
+      {
+        id: 7,
+        label: 'Sand goes',
+        theme: 'class',
+        image: 'assets/class/grade1-4/l22-my-sand-pie/reader/p07.webp',
+        alt: 'The sand goes here',
+        sentences: [
+          { id: 'l22-p07-sand-goes', text: 'The sand goes here.', audio: 'assets/class/grade1-4/l22-my-sand-pie/audio/p07-sand-goes.mp3' },
+        ]
+      },
+      {
+        id: 8,
+        label: 'Leaves go',
+        theme: 'class',
+        image: 'assets/class/grade1-4/l22-my-sand-pie/reader/p08.webp',
+        alt: 'The leaves go here',
+        sentences: [
+          { id: 'l22-p08-leaves-go', text: 'The leaves go here.', audio: 'assets/class/grade1-4/l22-my-sand-pie/audio/p08-leaves-go.mp3' },
+        ]
+      },
+      {
+        id: 9,
+        label: 'My sand pie',
+        theme: 'class',
+        image: 'assets/class/grade1-4/l22-my-sand-pie/reader/p09.webp',
+        alt: 'Look at my sand pie',
+        sentences: [
+          { id: 'l22-p09-look', text: 'Look at my sand pie.', audio: 'assets/class/grade1-4/l22-my-sand-pie/audio/p09-look.mp3' },
+        ]
+      },
+    ]
+  },
+  {
     id: 'class-1-4-l21-my-lunch',
     title: 'L21 My lunch',
     subtitle: '一（4）班点读版',

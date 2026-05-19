@@ -23,6 +23,12 @@ function buildCard(book) {
   };
 }
 
+function readingSort(a, b) {
+  if (a.id === 'lets-move') return -1;
+  if (b.id === 'lets-move') return 1;
+  return 0;
+}
+
 Page({
   data: {
     books: [],
@@ -35,7 +41,7 @@ Page({
   onLoad() {
     const activeBooks = books.filter(book => !book.comingSoon && !isExpired(book));
     const classBooks = activeBooks.filter(book => isClassBook(book)).map(buildCard);
-    const readingBooks = activeBooks.filter(book => !isClassBook(book)).map(buildCard);
+    const readingBooks = activeBooks.filter(book => !isClassBook(book)).sort(readingSort).map(buildCard);
 
     this.setData({
       classBooks,
